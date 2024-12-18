@@ -33,6 +33,14 @@ export default function App() {
     localStorage.setItem("todos", JSON.stringify(updatedTodos));
   };
 
+  const editTodo = (id, newText) => {
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, text: newText } : todo
+    );
+    setTodos(updatedTodos);
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+  };
+
   const filteredTodos =
     filter === "All"
       ? todos
@@ -42,7 +50,6 @@ export default function App() {
 
   return (
     <div className="bg-gray-900 text-white min-h-screen flex flex-col items-center">
-      {/* Heading at the top */}
       <Header />
       <div className="flex-grow flex items-center justify-center w-full">
         <div className="w-full max-w-3xl p-6">
@@ -69,6 +76,7 @@ export default function App() {
                 todo={todo}
                 deleteTodo={deleteTodo}
                 toggleComplete={toggleComplete}
+                editTodo={editTodo}
               />
             ))}
           </div>
